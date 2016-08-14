@@ -22,6 +22,16 @@ public class UserLoginInfoBean {
     private int userId;
     private String username;
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    private String password;
+
     public String getMessage() {
         return message;
     }

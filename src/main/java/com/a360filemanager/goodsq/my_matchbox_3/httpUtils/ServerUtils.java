@@ -20,8 +20,17 @@ public class ServerUtils {
     String id;
     String name;
     Context mContext;
+    String password;
+    String loginPassword;
+    boolean loginType;
     QQUserInfoBean mQQUserInfoBean;
     WeiboUserInfoBean mWeiboUserInfoBean;
+    public ServerUtils(Context mContext, String id,String loginPassword,boolean loginType){
+        this.mContext = mContext;
+        this.id = id;
+        this.loginPassword = loginPassword;
+        this.loginType = loginType;
+    }
 
     public ServerUtils(Context mContext, String id, QQUserInfoBean mQQUserInfoBean, String name, int i) {
         this.id = id;
@@ -36,9 +45,13 @@ public class ServerUtils {
         this.mWeiboUserInfoBean = mWeiboUserInfoBean;
     }
 
-    public void loginServer() {
-        //登录服务器,登录自己的服务器，这一步是访问服务器
-        LoginServerHttpUtils.userLoginService(id, ServerInterfaceBean.DEFAULT_PASSWORD, loginServerCallback);
+    public void loginServer() {//登录服务器,登录自己的服务器，这一步是访问服务器
+        if (loginType){//非第三方登录
+            password = loginPassword;
+        }else {//第三方登录
+            password = ServerInterfaceBean.DEFAULT_PASSWORD;
+        }
+            LoginServerHttpUtils.userLoginService(id,password , loginServerCallback);
     }
 
     //1.登录服务器的回调监听，用于获取登录服务器后返回的数据
@@ -52,7 +65,7 @@ public class ServerUtils {
             } else {//登录失败，进行注册
                 Log.e("TAG","------登录失败-------");
                 Toast.makeText(mContext,"登录失败",Toast.LENGTH_SHORT).show();
-                LoginServerHttpUtils.userRegister(id, ServerInterfaceBean.DEFAULT_PASSWORD, registerServerCallback);
+                LoginServerHttpUtils.userRegister(id, password, registerServerCallback);
             }
         }
 

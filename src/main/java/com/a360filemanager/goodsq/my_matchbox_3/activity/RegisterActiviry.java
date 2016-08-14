@@ -2,7 +2,6 @@ package com.a360filemanager.goodsq.my_matchbox_3.activity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -17,9 +16,9 @@ import com.a360filemanager.goodsq.my_matchbox_3.MyTextWatcher;
 import com.a360filemanager.goodsq.my_matchbox_3.R;
 import com.a360filemanager.goodsq.my_matchbox_3.base.BaseActvity;
 import com.a360filemanager.goodsq.my_matchbox_3.utils.BoxUtils;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstantUtils;
 import com.tencent.connect.common.Constants;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 import cn.smssdk.EventHandler;
@@ -51,11 +50,11 @@ public class RegisterActiviry extends BaseActvity {
 
     @Override
     public void init() {
-        //registerTvSendVerificationCode.setEnabled(false);//不能触发点击事件
+        registerTvSendVerificationCode.setEnabled(false);//不能触发点击事件
         //出错地方：应该这样拿到XML中的碎片（fragment)包含的类的实例，而不是new一个ThirdPartyFragment对象
         fragment = getSupportFragmentManager().findFragmentById(R.id.thirdparty);
         registerEtInputPhoneNum.requestFocus();//一个布局里面有两个 EditText，光标默认停在第二个EditText上;
-        registerEtInputPhoneNum.addTextChangedListener(new MyTextWatcher(registerEtInputPhoneNum, registerIvClearPhoneNum,registerTvSendVerificationCode , 1));
+        registerEtInputPhoneNum.addTextChangedListener(new MyTextWatcher(registerEtInputPhoneNum, registerIvClearPhoneNum,registerTvSendVerificationCode , ConstantUtils.REGISTER_TAG));
         registerEtInputPhoneNum.setOnEditorActionListener(editorAction);//EditText回车监听
     }
 
@@ -82,11 +81,7 @@ public class RegisterActiviry extends BaseActvity {
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.register_tv_sendVerificationCode:
-                Intent intent = new Intent(RegisterActiviry.this, VerifyActivity.class);
-                intent.putExtra("areaCode", registerEtAreaCode.getText().toString());
-                intent.putExtra("phoneNum", registerEtInputPhoneNum.getText().toString().replace(" ",""));
-                startActivity(intent);
-                //sendVerificationCode();
+                sendVerificationCode();
                 break;
             case R.id.register_iv_clearPhoneNum:
                 registerEtInputPhoneNum.setText("");
@@ -105,7 +100,7 @@ public class RegisterActiviry extends BaseActvity {
             Log.e("TAG",registerEtInputPhoneNum.getText().toString().replace(" ", ""));
             //发送验证码
             dialog = BoxUtils.getProgressDialog(this, "正在发送验证码", "请稍后......");
-            SMSSDK.getVerificationCode(registerEtAreaCode.getText().toString(), registerEtInputPhoneNum.getText().toString().replace(" ", ""));
+            SMSSDK.getVerificationCode("+"+registerEtAreaCode.getText().toString(), registerEtInputPhoneNum.getText().toString().replace(" ", ""));
         } else {
             Toast.makeText(RegisterActiviry.this, "请输入正确的电话号码", Toast.LENGTH_SHORT).show();
         }
@@ -141,7 +136,7 @@ public class RegisterActiviry extends BaseActvity {
                 if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {
                     showToast("验证码发送成功");
                     Intent intent = new Intent(RegisterActiviry.this, VerifyActivity.class);
-                    intent.putExtra("areaCode", registerEtAreaCode.getText().toString());
+                    intent.putExtra("areaCode", "+"+registerEtAreaCode.getText().toString());
                     intent.putExtra("phoneNum", registerEtInputPhoneNum.getText().toString().replace(" ",""));
                     startActivity(intent);
                 }

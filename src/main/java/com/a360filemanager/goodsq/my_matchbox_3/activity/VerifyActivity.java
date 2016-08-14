@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.a360filemanager.goodsq.my_matchbox_3.MyApp;
 import com.a360filemanager.goodsq.my_matchbox_3.MyTextWatcher;
 import com.a360filemanager.goodsq.my_matchbox_3.R;
 import com.a360filemanager.goodsq.my_matchbox_3.base.BaseActvity;
 import com.a360filemanager.goodsq.my_matchbox_3.utils.BoxUtils;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstantUtils;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -52,9 +52,9 @@ public class VerifyActivity extends BaseActvity {
         areaCode = getIntent().getStringExtra("areaCode");
         phoneNum = getIntent().getStringExtra("phoneNum");
         Log.e("TAG", "-----999------");
-        verifyEtVerificationCode.addTextChangedListener(new MyTextWatcher(verifyEtVerificationCode,verifyIvClearVerificationCode,verifyTvSubmit,2));
-        //countDownTimer = new MyCountDownTimer();
-        //countDownTimer.start();
+        verifyEtVerificationCode.addTextChangedListener(new MyTextWatcher(verifyEtVerificationCode,verifyIvClearVerificationCode,verifyTvSubmit, ConstantUtils.VERIFY_TAG));
+        countDownTimer = new MyCountDownTimer();
+        countDownTimer.start();
     }
 
     @Override
@@ -86,6 +86,7 @@ public class VerifyActivity extends BaseActvity {
             case R.id.verify_et_verificationCode:
                 break;
             case R.id.verify_iv_clearVerificationCode:
+                verifyEtVerificationCode.setText("");
                 break;
             case R.id.verify_tv_submit:
                 verification();
@@ -100,6 +101,8 @@ public class VerifyActivity extends BaseActvity {
 
     private void verification(){
             dialog = BoxUtils.getProgressDialog(this,"正在验证","请稍后");//在前，否则将不会被执行
+        Log.e("TAH","--------------"+areaCode+"  === "+phoneNum);
+        Log.e("TAH","-------123-------"+verifyEtVerificationCode.getText().toString());
             SMSSDK.submitVerificationCode(areaCode,phoneNum,verifyEtVerificationCode.getText().toString());
     }
 
@@ -109,11 +112,12 @@ public class VerifyActivity extends BaseActvity {
             super.afterEvent(event, result, data);
             if (dialog!=null&&dialog.isShowing()){//关闭dialog
                 dialog.dismiss();
+                Log.e("ATA","--------dialog---------");
             }
             //解析验证结果
             if (result == SMSSDK.RESULT_COMPLETE) {
-                if (event == SMSSDK.EVENT_GET_VERIFICATION_CODE) {//验证成功
-                    startActivity(new Intent(VerifyActivity.this, EditDataActivity.class));
+                if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//验证成功
+                    startActivity(new Intent(VerifyActivity.this, SetPasswordActivity.class));
                 }
             } else {
                 showToast("验证码错误");

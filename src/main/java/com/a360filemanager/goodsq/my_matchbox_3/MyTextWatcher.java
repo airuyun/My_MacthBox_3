@@ -8,6 +8,8 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstantUtils;
+
 /**
  * Created by goodsq on 2016/8/11.
  */
@@ -45,24 +47,17 @@ public class MyTextWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        boolean a = false,b = false;
-        Log.e("TAG", "-----99988------"+tag);
         if (charSequence.length() > 0) {
             imageView.setVisibility(View.VISIBLE);
         } else {
             imageView.setVisibility(View.INVISIBLE);
         }
-        if (tag == 0){
-            if (editText.getText().toString().length()>0){
-                a = true;
-            }else {
-                a = false;
-            }
-        }else if (tag == 1) {
-            if (editText.getText().toString().length()>0){
-                b=true;
-            }else {
-                b = false;
+        if (tag == ConstantUtils.REGISTER_TAG | tag == ConstantUtils.LOGIN_PHONENUM_TAG) {
+
+            if (editText.getText().toString().length() > 0) {
+                MyApp.getInstance().b = true;
+            } else {
+                MyApp.getInstance().b = false;
             }
             StringBuilder sb = new StringBuilder();
             sb.append(editText.getText());
@@ -73,18 +68,31 @@ public class MyTextWatcher implements TextWatcher {
                 editText.setSelection(sb.length());//将光标移动到index处
                 sb.delete(0, sb.length());
             }
-        }else if (tag == 2) {
-            Log.e("TAG", "-----999111------");
+        } else if (tag == ConstantUtils.LOGIN_PASSWORD_TAG) {
+
+            if (editText.getText().toString().length() > 0) {
+                MyApp.getInstance().a = true;
+            } else {
+                MyApp.getInstance().a = false;
+            }
+        } else if (tag == ConstantUtils.VERIFY_TAG) {
             if (editText.getText().toString().length() >= 4) {
-                Log.e("TAG", "-----999------"+editText.getText().toString().length());
                 textView.setEnabled(true);
             } else {
-                Log.e("TAG", "-----999------");
                 textView.setEnabled(false);
             }
         }
-        if (a){
-
+        if (tag == ConstantUtils.LOGIN_PHONENUM_TAG | tag == ConstantUtils.LOGIN_PASSWORD_TAG) {
+            if (MyApp.getInstance().a & MyApp.getInstance().b) {
+                textView.setEnabled(true);
+            } else {
+                textView.setEnabled(false);
+            }
+        }
+        if (tag == ConstantUtils.REGISTER_TAG) {
+            if (editText.getText().toString().replace(" ", "").length() == 11) {
+                textView.setEnabled(true);
+            }
         }
     }
 

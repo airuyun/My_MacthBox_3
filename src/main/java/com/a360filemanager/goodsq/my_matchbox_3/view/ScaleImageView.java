@@ -16,7 +16,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.ImageView;
 
-import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstanUtils;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstantUtils;
 
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
@@ -243,7 +243,7 @@ public class ScaleImageView extends ImageView implements View.OnTouchListener {
 
     public String saveBitmap() {
         Bitmap bmp = getBitmap();
-        String dir = ConstanUtils.IMAGE_PATH + System.currentTimeMillis() + ".png";
+        String dir = ConstantUtils.IMAGE_PATH + System.currentTimeMillis() + ".png";
         try {
             bmp.compress(Bitmap.CompressFormat.PNG, 100, new FileOutputStream(dir));
         } catch (FileNotFoundException e) {

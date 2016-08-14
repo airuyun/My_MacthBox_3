@@ -9,8 +9,10 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.a360filemanager.goodsq.my_matchbox_3.utils.MyOnCheckedChangeListener;
 import com.a360filemanager.goodsq.my_matchbox_3.MyTextWatcher;
+import com.a360filemanager.goodsq.my_matchbox_3.httpUtils.ServerUtils;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstantUtils;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.MyOnCheckedChangeListener;
 import com.a360filemanager.goodsq.my_matchbox_3.R;
 import com.a360filemanager.goodsq.my_matchbox_3.base.BaseActvity;
 import com.tencent.connect.common.Constants;
@@ -55,8 +57,8 @@ public class LoginActivity extends BaseActvity {
         loginTvLoginButton.setEnabled(false);
         loginEtPhoneNum.requestFocus();//一个布局里面有两个 EditText，光标默认停在第二个EditText上;
         fragment = getSupportFragmentManager().findFragmentById(R.id.thirdparty);
-        loginEtPhoneNum.addTextChangedListener(new MyTextWatcher(loginEtPhoneNum, loginIvClearPhoneNum, 1));
-        loginEtPassword.addTextChangedListener(new MyTextWatcher(loginEtPassword, loginIvClearPassword,0));
+        loginEtPhoneNum.addTextChangedListener(new MyTextWatcher(loginEtPhoneNum, loginIvClearPhoneNum, loginTvLoginButton, ConstantUtils.LOGIN_PHONENUM_TAG));
+        loginEtPassword.addTextChangedListener(new MyTextWatcher(loginEtPassword, loginIvClearPassword, loginTvLoginButton, ConstantUtils.LOGIN_PASSWORD_TAG));
         registerCbShowPassword.setOnCheckedChangeListener(MyOnCheckedChangeListener.instance(loginEtPassword));
     }
 
@@ -75,6 +77,7 @@ public class LoginActivity extends BaseActvity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_tv_loginButton:
+
                 break;
             case R.id.login_iv_goBack://返回
                 finish();
@@ -92,5 +95,9 @@ public class LoginActivity extends BaseActvity {
 
                 break;
         }
+    }
+
+    private void login(){
+        ServerUtils mServerUtils = new ServerUtils(this,loginEtPhoneNum.getText().toString(),loginEtPassword.getText().toString(),true);
     }
 }
