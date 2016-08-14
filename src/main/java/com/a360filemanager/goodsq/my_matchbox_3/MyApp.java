@@ -1,8 +1,15 @@
 package com.a360filemanager.goodsq.my_matchbox_3;
 
+import android.app.Activity;
 import android.app.Application;
 
+import com.a360filemanager.goodsq.my_matchbox_3.bean.UserLoginInfoBean;
+
 import org.xutils.x;
+
+import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 import cn.smssdk.SMSSDK;
 
@@ -30,9 +37,64 @@ public class MyApp extends Application {
         return noSend;
     }
 
+
     /**
-    * 剩余时间
-    * */
+     * 循环遍历退出
+     **/
+    List<Activity> activities = new ArrayList<>();
+
+    public void addActivity(Activity activity) {
+        activities.add(activity);
+    }
+
+    public void exit() {
+        for (int i = 0; i < activities.size(); i++) {
+            if (activities.get(i) != null) {
+                activities.get(i).finish();
+            }
+        }
+    }
+
+    public boolean isLogin() {
+        if (user == null || user.getUserId() == 0) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    /**
+     * 共享数据单元
+     */
+    private UserLoginInfoBean user;
+
+    public UserLoginInfoBean getUser() {
+        return user;
+    }
+
+    public void setUser(UserLoginInfoBean user) {
+        this.user = user;
+    }
+
+    private List<File> allPic;
+
+    public List<File> getAllPic() {
+        return allPic;
+    }
+
+    public void setAllPic(List<File> allPic) {
+        this.allPic = allPic;
+    }
+
+    private boolean isSendCode;
+
+    public boolean isSendCode() {
+        return isSendCode;
+    }
+
+    /**
+     * 剩余时间
+     * */
 
     public void remainTime(final long time){
 
@@ -51,4 +113,6 @@ public class MyApp extends Application {
         }.start();
 
     }
+    public boolean a = false;
+    public boolean b = false;
 }
