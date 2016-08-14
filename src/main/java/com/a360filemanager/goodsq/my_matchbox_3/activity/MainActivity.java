@@ -18,7 +18,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
 /**
-* 绝不修改版╱╲ <> ╱╲
+* 绝不修改版╱╲ <12> ╱╲
 * */
 public class MainActivity extends BaseActvity {
 
