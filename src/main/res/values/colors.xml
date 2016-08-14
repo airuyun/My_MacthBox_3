@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+    <color name="colorPointSelectTrue">#FFFFFF</color>
+    <color name="colorPointSelectFalse">#9cffffff</color>
+    <color name="colorArmyGreen">#0c201c</color>
+    <color name="colorArmyGreen_tran">#600c201c</color>
+    <color name="colortextColorHint">#8f8a8c8c</color>
+</resources>

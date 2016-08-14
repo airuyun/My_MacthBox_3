@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:id="@+id/ll2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="请选择你喜欢的话题"
+            android:textColor="@color/colorArmyGreen"
+            android:textSize="@dimen/text_18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="10dp"
+            android:text="至少选择3个"
+            android:textColor="@android:color/darker_gray"
+            android:textSize="@dimen/text_12dp" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/selectTopic_tv_finish"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:text="完成"
+        android:textColor="@android:color/holo_blue_dark"
+        android:textSize="@dimen/text_20dp" />
+
+    <co.lujun.androidtagview.TagContainerLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="0dp"
+        android:padding="10dp"
+        app:container_enable_drag="false"
+        app:horizontal_interval="10dp"
+        app:tag_clickable="true"
+        app:tag_theme="pure_teal"
+        app:vertical_interval="10dp" />
+
+</RelativeLayout>

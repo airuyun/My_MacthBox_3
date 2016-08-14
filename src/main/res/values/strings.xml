@@ -1,0 +1,22 @@
+<resources>
+    <string name="app_name">My_MatchBox_3</string>
+    <string name="main_login">登录</string>
+    <string name="main_register">注册</string>
+    <string name="register_thirdpartylogin">第三方登陆</string>
+    <string name="input_phone_num">请输入您的手机号码</string>
+    <string name="service_agreement">不用担心，我们不会公开您的手机号码。注册即表明您同意我们的《服务协议》</string>
+    <string-array name="main_textTop">
+        <item>前往你自己的小宇宙</item>
+        <item>大便的时候你会想什么</item>
+        <item>我最喜欢的电影海报</item>
+        <item>旅行摄影</item>
+        <item>不会发到朋友圈的照片</item>
+    </string-array>
+    <string-array name="main_textBottom">
+        <item>发现好玩的人，发现另一个你</item>
+        <item>和好玩的人一起开脑洞</item>
+        <item>电影、音乐、书...和朋友分享兴趣</item>
+        <item>收集、健身、写字、画画...快速找到同好</item>
+        <item>厌倦了朋友圈？来玩点有毒的</item>
+    </string-array>
+</resources>

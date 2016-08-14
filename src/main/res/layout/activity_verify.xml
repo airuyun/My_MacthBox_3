@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/verify_iv_goBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/community_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="验证"
+            android:textColor="@color/colorArmyGreen"
+            android:textSize="@dimen/text_18dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="20dp"
+        android:layout_marginLeft="20dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="50dp"
+        android:text="请输入验证码"
+        android:textColor="@color/colorArmyGreen"
+        android:textSize="@dimen/text_16dp" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+        <!--android:inputType="number"只能输入数字-->
+        <EditText
+            android:id="@+id/verify_et_verificationCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:background="@null"
+            android:hint="验证码"
+            android:inputType="number"
+            android:maxLength="20"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:textColor="@color/colorArmyGreen"
+            android:textColorHint="@color/colortextColorHint"
+            android:textSize="@dimen/text_16dp" />
+
+        <ImageView
+            android:id="@+id/verify_iv_clearVerificationCode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/search_clear_normal"
+            android:visibility="gone" />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/verify_tv_submit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="30dp"
+        android:background="@drawable/button_selector"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="提交"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/button_text_size" />
+    <TextView
+        android:id="@+id/verify_tv_receiveVoiceVerification"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/button_selector"
+        android:gravity="center"
+        android:padding="10dp"
+        android:text="接收语音验证码"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/button_text_size" />
+    </LinearLayout>
+
+</LinearLayout>

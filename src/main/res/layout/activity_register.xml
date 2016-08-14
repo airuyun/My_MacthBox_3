@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/register_iv_goBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/community_back" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="注册"
+            android:textColor="@color/colorArmyGreen"
+            android:textSize="@dimen/text_18dp" />
+
+        <TextView
+            android:id="@+id/register_tv_jumpLogin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:text="登录"
+            android:textColor="@color/colorArmyGreen"
+            android:textSize="@dimen/text_16dp" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/darker_gray" />
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/thirdparty"
+        android:name="com.a360filemanager.goodsq.my_matchbox_3.fragment.ThirdPartyFragment"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/thirdparty"
+        android:layout_below="@id/rl"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="@dimen/text_20dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/input_phone_num"
+            android:textColor="@color/colorArmyGreen"
+            android:textSize="@dimen/text_18dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="30dp"
+            android:text="@string/service_agreement"
+            android:textColor="@color/colorArmyGreen"
+            android:textSize="@dimen/text_15dp" />
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TableRow android:layout_marginBottom="20dp">
+
+                <TextView
+                    android:layout_marginLeft="5dp"
+                    android:layout_marginRight="@dimen/text_20dp"
+                    android:text="国家"
+                    android:textColor="@color/colorArmyGreen"
+                    android:textSize="@dimen/text_16dp" />
+
+                <RelativeLayout
+                    android:layout_weight="1"
+                    android:paddingLeft="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="中国"
+                        android:textColor="@color/colorArmyGreen"
+                        android:textSize="@dimen/text_16dp" />
+
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="12dp"
+                        android:src="@mipmap/icon_arrow_down" />
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow>
+
+                <LinearLayout android:background="@drawable/frame_register">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:text="+"
+                        android:textColor="@color/colorArmyGreen"
+                        android:textSize="@dimen/text_16dp" />
+                    <!--background 设为null可以去掉EditText的下划线，通过textCursorDrawable自定义光标颜色和粗细-->
+                    <EditText
+                        android:id="@+id/register_et_areaCode"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@null"
+                        android:cursorVisible="true"
+                        android:paddingBottom="10dp"
+                        android:paddingTop="10dp"
+                        android:singleLine="true"
+                        android:text="86"
+                        android:textColor="@color/colorArmyGreen"
+                        android:textColorHint="@color/colorArmyGreen"
+                        android:textCursorDrawable="@drawable/color_cursor"
+                        android:textSize="@dimen/text_16dp" />
+                </LinearLayout>
+
+                <RelativeLayout android:layout_weight="1">
+
+                    <EditText
+                        android:id="@+id/register_et_inputPhoneNum"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:maxLength="13"
+                        android:background="@drawable/frame_register"
+                        android:hint="输入登陆手机号"
+                        android:paddingBottom="10dp"
+                        android:paddingLeft="5dp"
+                        android:paddingTop="10dp"
+                        android:singleLine="true"
+
+                        android:textColor="@color/colorArmyGreen"
+                        android:textColorHint="@color/colortextColorHint"
+                        android:textSize="@dimen/text_16dp" />
+
+                    <ImageView
+                        android:id="@+id/register_iv_clearPhoneNum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="10dp"
+                        android:src="@mipmap/search_clear_normal"
+                        android:visibility="gone" />
+                </RelativeLayout>
+            </TableRow>
+        </TableLayout>
+
+        <TextView
+            android:id="@+id/register_tv_sendVerificationCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/button_selector"
+            android:gravity="center"
+            android:padding="10dp"
+            android:text="发送验证码"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/text_18dp" />
+
+    </LinearLayout>
+
+</RelativeLayout>
