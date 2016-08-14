@@ -9,6 +9,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.a360filemanager.goodsq.my_matchbox_3.MyApp;
 import com.a360filemanager.goodsq.my_matchbox_3.R;
 import com.a360filemanager.goodsq.my_matchbox_3.base.BaseActvity;
 import com.a360filemanager.goodsq.my_matchbox_3.utils.MyOnCheckedChangeListener;
@@ -45,20 +46,21 @@ public class EditDataActivity extends BaseActvity {
         MyOnCheckedChangeListener.instance(editDataEtNickName);
     }
 
-    @OnClick({R.id.edit_data_iv_goBack, R.id.edit_data_figure, R.id.edit_data_et_nickName, R.id.edit_data_iv_clearNickName, R.id.edit_data_tv_entry})
+    @OnClick({R.id.edit_data_iv_goBack, R.id.edit_data_figure, R.id.edit_data_iv_clearNickName, R.id.edit_data_tv_entry})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.edit_data_iv_goBack:
+                finish();//退出当前页
                 break;
-            case R.id.edit_data_figure:
-                startActivity(new Intent(this,SelectTopicActivity.class));
-                break;
-            case R.id.edit_data_et_nickName:
+            case R.id.edit_data_figure://设置头像
+                startActivity(new Intent(this,setFigureActivity.class));
                 break;
             case R.id.edit_data_iv_clearNickName:
+                editDataEtNickName.setText("");
                 break;
             case R.id.edit_data_tv_entry:
-                startActivity(new Intent(this,HomeActivity.class));
+                MyApp.getInstance().getUser().setUsername(editDataEtNickName.getText().toString());//获取昵称并保存
+                startActivity(new Intent(this,SelectTopicActivity.class));
                 break;
         }
     }
