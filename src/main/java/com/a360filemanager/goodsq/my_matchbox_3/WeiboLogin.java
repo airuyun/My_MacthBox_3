@@ -45,9 +45,9 @@ public class WeiboLogin {
     public void login() {
         mAuthInfo = new AuthInfo(mContext, WEIBO_APPKEY, "http://www.baidu.com", SCOPE);
         mSsoHandler = new SsoHandler(mActivity, mAuthInfo);
-        //发起授权登陆
-        mSsoHandler.authorize(authListener);
+        mSsoHandler.authorize(authListener);//发起授权登录
     }
+
     //2.显示授权页面
     WeiboAuthListener authListener = new WeiboAuthListener() {
         @Override
@@ -56,20 +56,18 @@ public class WeiboLogin {
             String expires_in = bundle.getString("expires_in");
             //出现问题的地方，要得到Long uid = bundle.getLong("uid");要先转String再转为Long类型，why？
             Long uid = Long.parseLong(bundle.getString("uid"));
-            mAccessToken = new Oauth2AccessToken(access_token,expires_in);
-            mUsersAPI = new UsersAPI(mContext,WEIBO_APPKEY,mAccessToken);
-            mUsersAPI.show(uid,requestListener);
+            mAccessToken = new Oauth2AccessToken(access_token, expires_in);
+            mUsersAPI = new UsersAPI(mContext, WEIBO_APPKEY, mAccessToken);
+            mUsersAPI.show(uid, requestListener);
 
         }
 
         @Override
         public void onWeiboException(WeiboException e) {
-            Log.e("TAG", "----------------" + e.toString());
         }
 
         @Override
         public void onCancel() {
-            Log.e("TAG", "----------------");
         }
     };
     //3.获取用户数据
@@ -78,16 +76,14 @@ public class WeiboLogin {
     RequestListener requestListener = new RequestListener() {
         @Override
         public void onComplete(String s) {
-            Log.e("TAG","------JSon------"+s);
             //使用fastJSon将JSon数据反序列化
-            weiboUserInfoBean = JSON.parseObject(s.toString(),WeiboUserInfoBean.class);
-            ServerUtils mServerUtils = new ServerUtils(weiboUserInfoBean.getId()+"",weiboUserInfoBean,"Weibo");
+            weiboUserInfoBean = JSON.parseObject(s.toString(), WeiboUserInfoBean.class);
+            ServerUtils mServerUtils = new ServerUtils(mContext, weiboUserInfoBean.getId() + "", weiboUserInfoBean, "Weibo");
             mServerUtils.loginServer();
         }
 
         @Override
         public void onWeiboException(WeiboException e) {
-            Log.e("TAG","------aaaa------");
         }
     };
 

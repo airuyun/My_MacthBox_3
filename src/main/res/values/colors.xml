@@ -8,4 +8,5 @@
     <color name="colorArmyGreen">#0c201c</color>
     <color name="colorArmyGreen_tran">#600c201c</color>
     <color name="colortextColorHint">#8f8a8c8c</color>
+    <color name="colorTagCloudDialog">#4d676969</color>
 </resources>

@@ -25,8 +25,6 @@ import cn.smssdk.SMSSDK;
  * Created by goodsq on 2016/8/13.
  */
 public class VerifyActivity extends BaseActvity {
-    @InjectView(R.id.verify_iv_goBack)
-    ImageView verifyIvGoBack;
     @InjectView(R.id.verify_et_verificationCode)
     EditText verifyEtVerificationCode;
     @InjectView(R.id.verify_iv_clearVerificationCode)
@@ -48,13 +46,12 @@ public class VerifyActivity extends BaseActvity {
 
     @Override
     public void init() {
-        verifyTvSubmit.setEnabled(false);
         areaCode = getIntent().getStringExtra("areaCode");
         phoneNum = getIntent().getStringExtra("phoneNum");
-        Log.e("TAG", "-----999------");
-        verifyEtVerificationCode.addTextChangedListener(new MyTextWatcher(verifyEtVerificationCode,verifyIvClearVerificationCode,verifyTvSubmit, ConstantUtils.VERIFY_TAG));
-        countDownTimer = new MyCountDownTimer();
+        verifyTvSubmit.setEnabled(false);
+        countDownTimer = new MyCountDownTimer();//倒计时计时器
         countDownTimer.start();
+        verifyEtVerificationCode.addTextChangedListener(new MyTextWatcher(verifyEtVerificationCode, verifyIvClearVerificationCode, verifyTvSubmit, ConstantUtils.VERIFY_TAG));
     }
 
     @Override
@@ -72,18 +69,17 @@ public class VerifyActivity extends BaseActvity {
     @Override
     protected void onDestroy() {//保存剩余时间
         super.onDestroy();
-        if (countDownTimer != null){
+        if (countDownTimer != null) {
             MyApp.getInstance().remainTime(countDownTimer.remainTime);
         }
 
     }
 
-    @OnClick({R.id.verify_iv_goBack, R.id.verify_et_verificationCode, R.id.verify_iv_clearVerificationCode, R.id.verify_tv_submit, R.id.verify_tv_receiveVoiceVerification})
+    @OnClick({R.id.verify_iv_goBack, R.id.verify_iv_clearVerificationCode, R.id.verify_tv_submit, R.id.verify_tv_receiveVoiceVerification})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.verify_iv_goBack:
-                break;
-            case R.id.verify_et_verificationCode:
+                finish();//关闭当前activity
                 break;
             case R.id.verify_iv_clearVerificationCode:
                 verifyEtVerificationCode.setText("");
@@ -92,30 +88,27 @@ public class VerifyActivity extends BaseActvity {
                 verification();
                 break;
             case R.id.verify_tv_receiveVoiceVerification:
-                SMSSDK.getVoiceVerifyCode(areaCode,phoneNum);
+                SMSSDK.getVoiceVerifyCode(areaCode, phoneNum);
                 countDownTimer = new MyCountDownTimer();
                 countDownTimer.start();
                 break;
         }
     }
 
-    private void verification(){
-            dialog = BoxUtils.getProgressDialog(this,"正在验证","请稍后");//在前，否则将不会被执行
-        Log.e("TAH","--------------"+areaCode+"  === "+phoneNum);
-        Log.e("TAH","-------123-------"+verifyEtVerificationCode.getText().toString());
-            SMSSDK.submitVerificationCode(areaCode,phoneNum,verifyEtVerificationCode.getText().toString());
+    private void verification() {
+        dialog = BoxUtils.getProgressDialog(this, "正在验证", "请稍后");//在前，否则将不会被执行
+        dialog.show();
+        SMSSDK.submitVerificationCode(areaCode, phoneNum, verifyEtVerificationCode.getText().toString());
     }
 
     EventHandler eventHandler = new EventHandler() {
         @Override
         public void afterEvent(int event, int result, Object data) {
             super.afterEvent(event, result, data);
-            if (dialog!=null&&dialog.isShowing()){//关闭dialog
+            if (dialog != null && dialog.isShowing()) {//验证码提交成功，关闭dialog
                 dialog.dismiss();
-                Log.e("ATA","--------dialog---------");
             }
-            //解析验证结果
-            if (result == SMSSDK.RESULT_COMPLETE) {
+            if (result == SMSSDK.RESULT_COMPLETE) {//解析验证结果
                 if (event == SMSSDK.EVENT_SUBMIT_VERIFICATION_CODE) {//验证成功
                     startActivity(new Intent(VerifyActivity.this, SetPasswordActivity.class));
                 }
@@ -125,9 +118,8 @@ public class VerifyActivity extends BaseActvity {
         }
     };
 
-
-    private class MyCountDownTimer extends CountDownTimer{
-
+    /*=======================================倒计时计时器=========================================*/
+    private class MyCountDownTimer extends CountDownTimer {
         long remainTime;
 
         public MyCountDownTimer() {
@@ -137,7 +129,7 @@ public class VerifyActivity extends BaseActvity {
         @Override
         public void onTick(long time) {
             verifyTvReceiveVoiceVerification.setEnabled(false);
-            verifyTvReceiveVoiceVerification.setText("已发送:"+time/1000+"秒");
+            verifyTvReceiveVoiceVerification.setText("已发送:" + time / 1000 + "秒");
             remainTime = time;
         }
 

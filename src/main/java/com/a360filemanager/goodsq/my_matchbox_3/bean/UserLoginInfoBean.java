@@ -19,8 +19,9 @@ public class UserLoginInfoBean {
     private String result;
     private String sex;
     private String url;
-    private int userId;
+    private long userId;
     private String username;
+
 
     public String getPassword() {
         return password;
@@ -72,11 +73,11 @@ public class UserLoginInfoBean {
         this.url = url;
     }
 
-    public int getUserId() {
+    public long getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(long userId) {
         this.userId = userId;
     }
 

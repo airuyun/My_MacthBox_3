@@ -18,12 +18,12 @@ import java.util.List;
  * 经常出现IllegalStateException:  You must call removeView() on the child's parent first.异常
  * 对PagerAdapter的使用不熟练
  */
-public class MyViewPagerAdapter extends PagerAdapter {
+public class MyPagerAdapter extends PagerAdapter {
 
     Context mContext;
     List<View> mList = new ArrayList<>();
 
-    public MyViewPagerAdapter(Context mContext) {
+    public MyPagerAdapter(Context mContext) {
         this.mContext = mContext;
         init();
     }
@@ -32,10 +32,10 @@ public class MyViewPagerAdapter extends PagerAdapter {
 
         for (int i = 0; i < 5; i++) {
             View view = View.inflate(mContext, R.layout.text_vp_main, null);//出现问题的地方,把这行代码放for循环外了,猪一样蠢;这一行放for外面,只创建一个对象
-            TextView tvTop = (TextView) view.findViewById(R.id.main_sv_tvTop);
-            TextView tvBottom = (TextView) view.findViewById(R.id.main_sv_tvBottom);
-            tvTop.setText(mContext.getResources().getStringArray(R.array.main_textTop)[i]);
-            tvBottom.setText(mContext.getResources().getStringArray(R.array.main_textBottom)[i]);
+            TextView tvAbove = (TextView) view.findViewById(R.id.main_sv_tvTop);
+            TextView tvBelow = (TextView) view.findViewById(R.id.main_sv_tvBottom);
+            tvAbove.setText(mContext.getResources().getStringArray(R.array.main_textTop)[i]);
+            tvBelow.setText(mContext.getResources().getStringArray(R.array.main_textBottom)[i]);
             mList.add(view);
         }
     }
@@ -53,7 +53,6 @@ public class MyViewPagerAdapter extends PagerAdapter {
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
-        Log.e("Tag", "------------" + (position % 5));
         container.removeView(mList.get(position % 5));
     }
 

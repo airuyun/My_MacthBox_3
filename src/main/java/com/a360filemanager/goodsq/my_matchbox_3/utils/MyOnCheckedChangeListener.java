@@ -14,12 +14,15 @@ public class MyOnCheckedChangeListener implements CompoundButton.OnCheckedChange
     static EditText editText;
 
     private static MyOnCheckedChangeListener singleInstance;
-    private MyOnCheckedChangeListener(){};
+
+    private MyOnCheckedChangeListener() {
+    }
+
     public static MyOnCheckedChangeListener instance(EditText et) {
-        editText = et;
         if (singleInstance == null) {
             singleInstance = new MyOnCheckedChangeListener();
         }
+        editText = et;
         return singleInstance;
     }
 
@@ -27,11 +30,9 @@ public class MyOnCheckedChangeListener implements CompoundButton.OnCheckedChange
     public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
         //切换眼睛
         if (b) {
-            Log.e("TAG", "---------11111-------" + b);
             editText.setInputType(InputType.TYPE_CLASS_TEXT);
         } else {
-            Log.e("TAG", "---------22222-------" + b);
-            editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            editText.setInputType(InputType.TYPE_CLASS_TEXT |InputType.TYPE_TEXT_VARIATION_PASSWORD);
         }
     }
 }

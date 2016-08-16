@@ -38,18 +38,21 @@
         android:layout_alignParentBottom="true"
         android:gravity="center"
         android:text="完成"
-        android:textColor="@android:color/holo_blue_dark"
+        android:textColor="#40A1FF"
         android:textSize="@dimen/text_20dp" />
 
-    <co.lujun.androidtagview.TagContainerLayout
+    <me.next.tagview.TagCloudView
+        android:id="@+id/tag_cloud_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="0dp"
-        android:padding="10dp"
-        app:container_enable_drag="false"
-        app:horizontal_interval="10dp"
-        app:tag_clickable="true"
-        app:tag_theme="pure_teal"
-        app:vertical_interval="10dp" />
+        android:layout_height="match_parent"
+        android:layout_below="@id/ll2"
+        android:layout_above="@id/selectTopic_tv_finish"
+        app:tcvBorder="10dp"
+        app:tcvBackground="@drawable/tag_cloud_selector"
+        app:tcvCanTagClick="true"
+        app:tcvItemBorderHorizontal="15dp"
+        app:tcvItemBorderVertical="10dp"
+        android:contextClickable="true"
+        app:tcvTextColor="@color/tag_cloud_textcolor" />
 
 </RelativeLayout>

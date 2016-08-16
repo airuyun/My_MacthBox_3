@@ -22,7 +22,6 @@ public class QQLogin {
     String TENCENT_APPID = "1105519061";
     UserInfo mUserInfo;
     QQUserBaseDataBean mQQUserBasicInfoBean;
-
     Context mContext;
     Activity mActivity;
 
@@ -79,7 +78,7 @@ public class QQLogin {
             //fastJson反序列化，使mQQUserInfoBean拿到数据
             mQQUserInfoBean = JSON.parseObject(o.toString(), QQUserInfoBean.class);
             //登录服务器,登录自己的服务器，这一步是访问服务器
-            ServerUtils mServerUtils = new ServerUtils(mContext,mTencent.getOpenId(),mQQUserInfoBean,"QQ",1);
+            ServerUtils mServerUtils = new ServerUtils(mContext, mTencent.getOpenId(), mQQUserInfoBean, "QQ");
             mServerUtils.loginServer();
             //服务器注册参数
             // 1.openId 用户名

@@ -8,6 +8,7 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.a360filemanager.goodsq.my_matchbox_3.MyTextWatcher;
 import com.a360filemanager.goodsq.my_matchbox_3.httpUtils.ServerUtils;
@@ -24,12 +25,6 @@ import butterknife.OnClick;
  * Created by goodsq on 2016/8/11.
  */
 public class LoginActivity extends BaseActvity {
-    @InjectView(R.id.login_tv_zone)
-    TextView loginTvZone;
-    @InjectView(R.id.login_iv_down)
-    ImageView loginIvDown;
-    @InjectView(R.id.login_iv_areaCode)
-    EditText loginIvAreaCode;
     @InjectView(R.id.login_et_phoneNum)
     EditText loginEtPhoneNum;
     @InjectView(R.id.login_iv_clearPhoneNum)
@@ -42,8 +37,6 @@ public class LoginActivity extends BaseActvity {
     ImageView loginIvClearPassword;
     @InjectView(R.id.login_tv_loginButton)
     TextView loginTvLoginButton;
-    @InjectView(R.id.login_tv_forgetPassword)
-    TextView loginTvForgetPassword;
 
     Fragment fragment;
 
@@ -55,7 +48,7 @@ public class LoginActivity extends BaseActvity {
     @Override
     public void init() {
         loginTvLoginButton.setEnabled(false);
-        loginEtPhoneNum.requestFocus();//一个布局里面有两个 EditText，光标默认停在第二个EditText上;
+        loginEtPhoneNum.requestFocus();//让 EditText获得光标;
         fragment = getSupportFragmentManager().findFragmentById(R.id.thirdparty);
         loginEtPhoneNum.addTextChangedListener(new MyTextWatcher(loginEtPhoneNum, loginIvClearPhoneNum, loginTvLoginButton, ConstantUtils.LOGIN_PHONENUM_TAG));
         loginEtPassword.addTextChangedListener(new MyTextWatcher(loginEtPassword, loginIvClearPassword, loginTvLoginButton, ConstantUtils.LOGIN_PASSWORD_TAG));
@@ -65,22 +58,23 @@ public class LoginActivity extends BaseActvity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == Constants.REQUEST_LOGIN) {
-            Log.e("TAG", "--qqq---------" + requestCode + "--" + resultCode + "--" + data.toString());
-            fragment.onActivityResult(requestCode, resultCode, data);
-        } else {
-            fragment.onActivityResult(requestCode, resultCode, data);
-        }
+        fragment.onActivityResult(requestCode, resultCode, data);
     }
 
-    @OnClick({R.id.login_tv_loginButton,R.id.login_iv_goBack, R.id.login_tv_jumpRegister, R.id.login_iv_clearPhoneNum, R.id.login_iv_clearPassword, R.id.register_cb_showPassword,R.id.login_iv_down})
+    @OnClick({R.id.login_tv_loginButton, R.id.login_iv_goBack, R.id.login_tv_jumpRegister, R.id.login_iv_clearPhoneNum, R.id.login_iv_clearPassword, R.id.register_cb_showPassword, R.id.login_iv_down})
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_tv_loginButton:
-
+                if (loginEtPhoneNum.getText().toString().length() > 0 && loginEtPassword.getText().toString().length() > 0) {
+                    //登录服务器
+                    ServerUtils mServerUtils = new ServerUtils(this, loginEtPhoneNum.getText().toString(), loginEtPassword.getText().toString(), true);
+                    mServerUtils.loginServer();
+                } else {
+                    Toast.makeText(LoginActivity.this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
+                }
                 break;
             case R.id.login_iv_goBack://返回
-                finish();
+                startActivity(new Intent(this, MainActivity.class));
                 break;
             case R.id.login_tv_jumpRegister://跳转到注册页
                 startActivity(new Intent(this, RegisterActiviry.class));
@@ -92,12 +86,7 @@ public class LoginActivity extends BaseActvity {
                 loginEtPassword.setText("");
                 break;
             case R.id.login_iv_down://选择地区
-
                 break;
         }
-    }
-
-    private void login(){
-        ServerUtils mServerUtils = new ServerUtils(this,loginEtPhoneNum.getText().toString(),loginEtPassword.getText().toString(),true);
     }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,8 +36,8 @@ public class ThirdPartyFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ButterKnife.reset(this);
-        qqLogin = new QQLogin(getContext(),getActivity());
-        weiboLogin = new WeiboLogin(getContext(),getActivity());
+        qqLogin = new QQLogin(getContext(), getActivity());
+        weiboLogin = new WeiboLogin(getContext(), getActivity());
     }
 
 
@@ -60,13 +59,11 @@ public class ThirdPartyFragment extends Fragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Log.e("TAG","----------------089475");
         if (requestCode == Constants.REQUEST_LOGIN) {//Constants.REQUEST_LOGIN，是腾讯授权登录中返回的需求编码（标识）
-            qqLogin.getmTencent().handleLoginData(data,qqLogin.getQqLoginListener());
+            qqLogin.getmTencent().handleLoginData(data, qqLogin.getQqLoginListener());
         }
-        if (weiboLogin.getmSsoHandler() != null){
+        if (weiboLogin.getmSsoHandler() != null) {
             weiboLogin.getmSsoHandler().authorizeCallBack(requestCode, resultCode, data);
         }
-
     }
 }

@@ -3,12 +3,14 @@ package com.a360filemanager.goodsq.my_matchbox_3.activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -37,13 +39,20 @@ import butterknife.OnClick;
 /**
  * Created by goodsq on 2016/8/11.
  */
-public class setFigureActivity extends BaseActvity {
+public class setFigureActivity extends BaseActvity implements AdapterView.OnItemClickListener {
+
+    List<File> pics;
+    List<File> gridFiles = new ArrayList<>();
+    List<PopupBean> mList = new ArrayList<>();
+    HeadPicAdapter adapter;
     @InjectView(R.id.set_figure_tv_cancle)
     TextView setFigureTvCancle;
     @InjectView(R.id.set_figure_tv_allImg)
     TextView setFigureTvAllImg;
     @InjectView(R.id.set_figure_tv_finish)
     TextView setFigureTvFinish;
+    @InjectView(R.id.set_figure_rl)
+    RelativeLayout setFigureRl;
     @InjectView(R.id.set_figure_siv)
     ScaleImageView setFigureSiv;
     @InjectView(R.id.set_figure_mgv)
@@ -51,14 +60,11 @@ public class setFigureActivity extends BaseActvity {
     @InjectView(R.id.set_figure_sv_img)
     ScrollView setFigureSvImg;
 
-    List<File> pics;
 
-    List<File> gridFiles = new ArrayList<>();
-
-    List<PopupBean> mList = new ArrayList<>();
-
-    HeadPicAdapter adapter;
-
+    @Override
+    public int getLayout() {
+        return R.layout.activity_set_figure;
+    }
 
     @Override
     public void init() {
@@ -76,8 +82,8 @@ public class setFigureActivity extends BaseActvity {
     private void initGridView() {
         gridFiles.addAll(pics);
         adapter = new HeadPicAdapter(this, gridFiles);
-        setheadGv.setAdapter(adapter);
-        setheadGv.setOnItemClickListener(this);
+        setFigureMgv.setAdapter(adapter);
+        setFigureMgv.setOnItemClickListener(this);
     }
 
     private void initData() {
@@ -116,47 +122,22 @@ public class setFigureActivity extends BaseActvity {
     @Override
     public void onWindowFocusChanged(boolean hasFocus) {
         super.onWindowFocusChanged(hasFocus);
-        ScrollView sc = (ScrollView) findViewById(R.id.sv);
+        ScrollView sc = (ScrollView) findViewById(R.id.set_figure_sv_img);
         sc.fullScroll(ScrollView.FOCUS_UP);
     }
 
     private void initSIV() {
         int width = getResources().getDisplayMetrics().widthPixels;
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(width, width);
-        setheadSiv.setLayoutParams(params);
-        setheadSiv.setImageBitmap(BitmapFactory.decodeFile(pics.get(0).getAbsolutePath()));
+        setFigureSiv.setLayoutParams(params);
+        setFigureSiv.setImageBitmap(BitmapFactory.decodeFile(pics.get(0).getAbsolutePath()));
     }
 
-
-    @Override
-    public int getLayout() {
-        return R.layout.activity_sethead;
-    }
-
-    @OnClick({R.id.set_figure_tv_cancle, R.id.set_figure_tv_allImg, R.id.set_figure_tv_finish, R.id.set_figure_siv, R.id.set_figure_mgv, R.id.set_figure_sv_img})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.set_figure_tv_cancle:
-                break;
-            case R.id.set_figure_tv_allImg:
-                showPopupWindow();
-                break;
-            case R.id.set_figure_tv_finish:
-                finish();
-                break;
-            case R.id.set_figure_siv:
-                break;
-            case R.id.set_figure_mgv:
-                break;
-            case R.id.set_figure_sv_img:
-                break;
-        }
-    }
 
     int dirIndex = 0;
 
     private void showPopupWindow() {
-        tvTitleAllpic.setSelected(true);
+        setFigureTvAllImg.setSelected(true);
         final ShowHeadPopuoWindow window = new ShowHeadPopuoWindow(this, mList);
 
         window.setCallback(new CallbackUtils<Integer>() {
@@ -164,7 +145,7 @@ public class setFigureActivity extends BaseActvity {
             @Override
             public void onSuccess(Integer integer) {
                 gridFiles.clear();
-                tvTitleAllpic.setText(mList.get(integer).getName());
+                setFigureTvAllImg.setText(mList.get(integer).getName());
                 //改变GridView的数据
                 if (mList.get(integer).getAbsPath().equals(Environment.getExternalStorageDirectory().getAbsolutePath()))
                     gridFiles.addAll(pics);
@@ -187,11 +168,11 @@ public class setFigureActivity extends BaseActvity {
 
             }
         });
-        window.showAsDropDown(sethead_rl);
+        window.showAsDropDown(setFigureRl);
         window.setOnDismissListener(new PopupWindow.OnDismissListener() {
             @Override
             public void onDismiss() {
-                tvTitleAllpic.setSelected(false);
+                setFigureTvAllImg.setSelected(false);
             }
         });
     }
@@ -217,7 +198,7 @@ public class setFigureActivity extends BaseActvity {
             startActivityForResult(intent, CAMERA_CODE);
         } else {
             adapter.setIndex(i);
-            setheadSiv.setImageBitmap(BitmapFactory.decodeFile(gridFiles.get(i - 1).getAbsolutePath()));
+            setFigureSiv.setImageBitmap(BitmapFactory.decodeFile(gridFiles.get(i - 1).getAbsolutePath()));
             adapter.notifyDataSetChanged();
         }
     }
@@ -227,7 +208,29 @@ public class setFigureActivity extends BaseActvity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CAMERA_CODE && resultCode == RESULT_OK) {
             Bitmap bitmap = (Bitmap) data.getExtras().get("data");
-            setheadSiv.setImageBitmap(bitmap);
+            setFigureSiv.setImageBitmap(bitmap);
+        }
+    }
+
+    @OnClick({R.id.set_figure_tv_cancle, R.id.set_figure_tv_allImg, R.id.set_figure_tv_finish, R.id.set_figure_rl, R.id.set_figure_siv, R.id.set_figure_mgv, R.id.set_figure_sv_img})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.set_figure_tv_cancle:
+                break;
+            case R.id.set_figure_tv_allImg:
+                showPopupWindow();
+                break;
+            case R.id.set_figure_tv_finish:
+                finish();
+                break;
+            case R.id.set_figure_rl:
+                break;
+            case R.id.set_figure_siv:
+                break;
+            case R.id.set_figure_mgv:
+                break;
+            case R.id.set_figure_sv_img:
+                break;
         }
     }
 }

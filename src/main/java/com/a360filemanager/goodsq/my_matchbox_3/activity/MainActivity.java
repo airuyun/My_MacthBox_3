@@ -1,7 +1,6 @@
 package com.a360filemanager.goodsq.my_matchbox_3.activity;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.SurfaceView;
 import android.view.View;
@@ -10,16 +9,16 @@ import android.widget.LinearLayout;
 
 import com.a360filemanager.goodsq.my_matchbox_3.R;
 import com.a360filemanager.goodsq.my_matchbox_3.WelcomeDialog;
-import com.a360filemanager.goodsq.my_matchbox_3.adapter.MyViewPagerAdapter;
+import com.a360filemanager.goodsq.my_matchbox_3.adapter.MyPagerAdapter;
 import com.a360filemanager.goodsq.my_matchbox_3.base.BaseActvity;
 import com.a360filemanager.goodsq.my_matchbox_3.callback.MySurfaceViewCallback;
 
-import butterknife.ButterKnife;
 import butterknife.InjectView;
 import butterknife.OnClick;
+
 /**
-* 绝不修改版╱╲ <12> ╱╲
-* */
+ * 绝不修改版╱╲ <12> ╱╲
+ */
 public class MainActivity extends BaseActvity {
 
     int index = 0;
@@ -45,11 +44,30 @@ public class MainActivity extends BaseActvity {
         MySurfaceViewCallback callback = new MySurfaceViewCallback(this);
         sv.getHolder().addCallback(callback);//显示SurfaceView绑定的内容
         points.getChildAt(index).setSelected(true);
-        vp.setAdapter(new MyViewPagerAdapter(this));
+        vp.setAdapter(new MyPagerAdapter(this));
+        /**
+         * 2147483647 / 2 = 1073741820 - 1，要把Integer.MAX_VALUE中间值设为第一页，需要得到ViewPager的整数陪
+         * 设置ViewPager的当前项为一个比较大的数，以便一开始就可以左右循环滑动
+         */
+        int n = Integer.MAX_VALUE / 2 % 5;
+        int itemPosition = Integer.MAX_VALUE / 2 - n;
+        vp.setCurrentItem(itemPosition);//指定第零页的位置
         vp.setOnPageChangeListener(pageChangeListener);
     }
 
-    /*============================================================================================*/
+    @OnClick({R.id.main_tv_login, R.id.main_tv_register})
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.main_tv_login:
+                startActivity(new Intent(this, LoginActivity.class));
+                break;
+            case R.id.main_tv_register:
+                startActivity(new Intent(this, RegisterActiviry.class));
+                break;
+        }
+    }
+
+    /*====================================ViewPager滑动监听=======================================*/
     ViewPager.OnPageChangeListener pageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -68,24 +86,4 @@ public class MainActivity extends BaseActvity {
 
         }
     };
-
-    /*============================================================================================*/
-    @OnClick({R.id.main_tv_login, R.id.main_tv_register})
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.main_tv_login:
-                startActivity(new Intent(this,LoginActivity.class));
-                break;
-            case R.id.main_tv_register:
-                startActivity(new Intent(this,RegisterActiviry.class));
-                break;
-        }
-    }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        // TODO: add setContentView(...) invocation
-        ButterKnife.inject(this);
-    }
 }

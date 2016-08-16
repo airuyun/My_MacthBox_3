@@ -28,7 +28,7 @@ public class LoginServerHttpUtils {
             public void onSuccess(String result) {
                 Log.e("TAG", "-------result--------" + result);//获取JSon数据,登录成功和登录失败返回的JSon参数不同
                 //使用fastJSon反序列化，获得服务器返回的数据，从服务器获取的JSon数据应该是由编写服务器的人提供，不然很难知道反序列化后具体有什么数据
-                UserLoginInfoBean userInfoBean = JSON.parseObject(result.toString(), UserLoginInfoBean.class);
+                UserLoginInfoBean userInfoBean = JSON.parseObject(result, UserLoginInfoBean.class);
                 callback.onSuccess(userInfoBean);
             }
 
@@ -46,7 +46,7 @@ public class LoginServerHttpUtils {
             @Override
             public void onSuccess(String result) {
                 Log.e("TAG", "----abcd-----" + result.toString());//获取JSon数据
-                UserRegisterInfoBean userRegisterInfoBean = JSON.parseObject(result.toString(), UserRegisterInfoBean.class);
+                UserRegisterInfoBean userRegisterInfoBean = JSON.parseObject(result, UserRegisterInfoBean.class);
                 callback.onSuccess(userRegisterInfoBean);
             }
 
@@ -60,9 +60,11 @@ public class LoginServerHttpUtils {
     //在服务器中修改资料
     public static final void update(UserLoginInfoBean user, final CallbackUtils<Boolean> callback) {
         UpdateServerHttpParams updateParams = new UpdateServerHttpParams(user);
+        Log.e("TAG","------------------正在修改资料");
         x.http().post(updateParams, new ResultCallback() {
             @Override
             public void onSuccess(String result) {
+                Log.e("TAG","------------------修改资料成功");
                 JSONObject jsonObject = null;
                 try {
                     jsonObject = new JSONObject(result);

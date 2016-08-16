@@ -15,7 +15,8 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.MainActivity"
+            android:launchMode="singleTop">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -33,6 +34,7 @@
         <activity android:name=".activity.setFigureActivity" />
         <activity android:name=".activity.HomeActivity" />
         <activity android:name=".activity.VerifyActivity"/>
+        <activity android:name=".activity.SetPasswordActivity"/>
         <!--=============================================================================================-->
         <activity
             android:name="com.tencent.tauth.AuthActivity"

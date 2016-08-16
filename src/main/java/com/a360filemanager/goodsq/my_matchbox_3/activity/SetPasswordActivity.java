@@ -1,21 +1,20 @@
 package com.a360filemanager.goodsq.my_matchbox_3.activity;
 
 import android.content.Intent;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.CheckBox;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.a360filemanager.goodsq.my_matchbox_3.MyApp;
+import com.a360filemanager.goodsq.my_matchbox_3.MyTextWatcher;
 import com.a360filemanager.goodsq.my_matchbox_3.R;
 import com.a360filemanager.goodsq.my_matchbox_3.base.BaseActvity;
 import com.a360filemanager.goodsq.my_matchbox_3.bean.UserLoginInfoBean;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstantUtils;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.MyOnCheckedChangeListener;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -23,23 +22,21 @@ import butterknife.OnClick;
 /**
  * Created by Administrator on 2016/8/4.
  */
-public class SetPasswordActivity extends BaseActvity implements TextWatcher, CompoundButton.OnCheckedChangeListener, TextView.OnEditorActionListener {
+public class SetPasswordActivity extends BaseActvity {
     @InjectView(R.id.password_et)
     EditText passwordEt;
     @InjectView(R.id.password_iv_show)
     CheckBox passwordIvShow;
     @InjectView(R.id.password_iv_clear)
     ImageView passwordIvClear;
-    @InjectView(R.id.line)
-    View line;
     @InjectView(R.id.password_tv_submit)
     TextView passwordTvSubmit;
 
     @Override
     public void init() {
-        passwordEt.addTextChangedListener(this);
-        passwordEt.setOnEditorActionListener(this);
-        passwordIvShow.setOnCheckedChangeListener(this);
+        passwordEt.addTextChangedListener(new MyTextWatcher(passwordEt, passwordIvClear, passwordTvSubmit, ConstantUtils.REGISTER_PASSWORD_TAG));
+        passwordEt.setOnEditorActionListener(listener);
+        passwordIvShow.setOnCheckedChangeListener(MyOnCheckedChangeListener.instance(passwordEt));
     }
 
     @Override
@@ -62,51 +59,16 @@ public class SetPasswordActivity extends BaseActvity implements TextWatcher, Com
         }
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
+    private void setPassword() {
+        MyApp.getInstance().getUser().setPassword(passwordEt.getText().toString());//记录输入的密码
+        startActivity(new Intent(this, EditDataActivity.class));
     }
 
-    @Override
-    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-        if (charSequence.length() > 0) {
-            passwordIvClear.setVisibility(View.VISIBLE);
-            if (charSequence.length() >= 6) {
-                passwordTvSubmit.setEnabled(true);
-            } else
-                passwordTvSubmit.setEnabled(false);
-        } else {
-            passwordIvClear.setVisibility(View.INVISIBLE);
-            passwordTvSubmit.setEnabled(false);
+    TextView.OnEditorActionListener listener = new TextView.OnEditorActionListener() {
+        @Override
+        public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+            setPassword();
+            return false;
         }
-    }
-
-    @Override
-    public void afterTextChanged(Editable editable) {
-
-    }
-
-    @Override
-    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-        //切换眼睛
-        if (b) {
-            passwordEt.setInputType(InputType.TYPE_CLASS_TEXT);
-        } else {
-            passwordEt.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-        }
-    }
-
-    public void setPassword() {
-        UserLoginInfoBean user = MyApp.getInstance().getUser();
-        user.setPassword(passwordEt.getText().toString());
-        MyApp.getInstance().setUser(user);
-        //跳转
-        startActivity(new Intent(this,EditDataActivity.class));
-    }
-
-    @Override
-    public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
-        setPassword();
-        return false;
-    }
+    };
 }

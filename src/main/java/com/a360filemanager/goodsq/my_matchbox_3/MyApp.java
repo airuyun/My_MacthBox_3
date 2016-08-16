@@ -20,7 +20,7 @@ public class MyApp extends Application {
 
     private static MyApp instance;
 
-    public static MyApp getInstance(){
+    public static MyApp getInstance() {
         return instance;
     }
 
@@ -29,14 +29,8 @@ public class MyApp extends Application {
         super.onCreate();
         instance = this;
         x.Ext.init(this);//初始化XUtils
-        SMSSDK.initSDK(this,"1516301759e68","3d9a8196bb129695e299b7bac1512eaf");//第二个参数为：App Key；第三个参数为：App Secret
+        SMSSDK.initSDK(this, "1516301759e68", "3d9a8196bb129695e299b7bac1512eaf");//第二个参数为：App Key；第三个参数为：App Secret
     }
-
-    private boolean noSend;
-    public boolean noSendVerificationCode(){
-        return noSend;
-    }
-
 
     /**
      * 循环遍历退出
@@ -66,7 +60,7 @@ public class MyApp extends Application {
     /**
      * 共享数据单元
      */
-    private UserLoginInfoBean user;
+    private UserLoginInfoBean user = new UserLoginInfoBean();
 
     public UserLoginInfoBean getUser() {
         return user;
@@ -94,11 +88,15 @@ public class MyApp extends Application {
 
     /**
      * 剩余时间
-     * */
+     */
+    private boolean noSend;
 
-    public void remainTime(final long time){
+    public boolean noSendVerificationCode() {
+        return noSend;
+    }
 
-        new Thread(){
+    public void remainTime(final long time) {
+        new Thread() {
             @Override
             public void run() {
                 super.run();
@@ -111,8 +109,8 @@ public class MyApp extends Application {
                 noSend = false;
             }
         }.start();
-
     }
+
     public boolean a = false;
     public boolean b = false;
 }
