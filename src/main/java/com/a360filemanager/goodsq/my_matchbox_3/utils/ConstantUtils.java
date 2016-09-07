@@ -17,7 +17,6 @@ public class ConstantUtils {
     public static final int LOGIN_PHONENUM_TAG = 1;
     public static final int LOGIN_PASSWORD_TAG = 2;
     public static final int VERIFY_TAG = 3;
-    public static final boolean isThirdParty = false;
 
     static {
         new File(IMAGE_PATH).getParentFile().mkdirs();

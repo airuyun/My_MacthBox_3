@@ -21,6 +21,7 @@ import butterknife.InjectView;
  */
 public class HeadPicAdapter extends ListItemAdapter<File> {
 
+
     public HeadPicAdapter(Context context, List<File> list) {
         super(context, list);
     }
@@ -35,6 +36,7 @@ public class HeadPicAdapter extends ListItemAdapter<File> {
     public int getCount() {
         return mList.size() + 1;
     }
+
 
     @Override
     public View getView(int i, View view, ViewGroup viewGroup) {
@@ -65,8 +67,6 @@ public class HeadPicAdapter extends ListItemAdapter<File> {
     class ViewHolder {
         @InjectView(R.id.item_iv)
         ImageView itemIv;
-        @InjectView(R.id.item_ll)
-        LinearLayout itemLl;
 
         ViewHolder(View view) {
             ButterKnife.inject(this, view);

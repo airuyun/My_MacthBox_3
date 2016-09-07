@@ -9,7 +9,7 @@ public class UserRegisterInfoBean {
     /**
      * message : 注册成功
      * result : 0
-     * userId : 514
+     * userId : 514  服务器分配的ID
      */
 
     private String message;
@@ -28,7 +28,7 @@ public class UserRegisterInfoBean {
         return result;
     }
 
-    public void setResult(String result) {
+    public  void setResult(String result) {
         this.result = result;
     }
 

@@ -11,12 +11,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.a360filemanager.goodsq.my_matchbox_3.MyTextWatcher;
-import com.a360filemanager.goodsq.my_matchbox_3.httpUtils.ServerUtils;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.AccessServerUtils;
 import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstantUtils;
 import com.a360filemanager.goodsq.my_matchbox_3.utils.MyOnCheckedChangeListener;
 import com.a360filemanager.goodsq.my_matchbox_3.R;
 import com.a360filemanager.goodsq.my_matchbox_3.base.BaseActvity;
-import com.tencent.connect.common.Constants;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -65,24 +64,28 @@ public class LoginActivity extends BaseActvity {
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.login_tv_loginButton:
-                if (loginEtPhoneNum.getText().toString().length() > 0 && loginEtPassword.getText().toString().length() > 0) {
+                if (loginEtPhoneNum.getText().toString().replace(" ", "").matches("[1][34578][\\d]{9}") && loginEtPassword.getText().toString().length() >= 6) {
                     //登录服务器
-                    ServerUtils mServerUtils = new ServerUtils(this, loginEtPhoneNum.getText().toString(), loginEtPassword.getText().toString(), true);
-                    mServerUtils.loginServer();
+                    AccessServerUtils mAccessServerUtils = new AccessServerUtils(this, loginEtPhoneNum.getText().toString().replace(" ", ""), loginEtPassword.getText().toString(), "Phone");
+                    mAccessServerUtils.loginServer();
+                } else if (loginEtPhoneNum.getText().toString().replace(" ","").length() != 11 || !loginEtPhoneNum.getText().toString().replace(" ", "").matches("[1][34578][\\d]{9}")) {
+                    Toast.makeText(LoginActivity.this, "请输入正确的电话号码", Toast.LENGTH_SHORT).show();
+                } else if (loginEtPassword.getText().toString().length() < 6) {
+                    Toast.makeText(LoginActivity.this, "密码不能小于6位", Toast.LENGTH_SHORT).show();
                 } else {
-                    Toast.makeText(LoginActivity.this, "账号或密码不能为空", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(LoginActivity.this, "账号或密码有误", Toast.LENGTH_SHORT).show();
                 }
                 break;
-            case R.id.login_iv_goBack://返回
-                startActivity(new Intent(this, MainActivity.class));
+            case R.id.login_iv_goBack:
+                finish();
                 break;
-            case R.id.login_tv_jumpRegister://跳转到注册页
+            case R.id.login_tv_jumpRegister:
                 startActivity(new Intent(this, RegisterActiviry.class));
                 break;
-            case R.id.login_iv_clearPhoneNum://清除号码
+            case R.id.login_iv_clearPhoneNum:
                 loginEtPhoneNum.setText("");
                 break;
-            case R.id.login_iv_clearPassword://清除密码
+            case R.id.login_iv_clearPassword:
                 loginEtPassword.setText("");
                 break;
             case R.id.login_iv_down://选择地区

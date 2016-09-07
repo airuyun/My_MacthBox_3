@@ -6,7 +6,7 @@ import android.util.Log;
 
 import com.a360filemanager.goodsq.my_matchbox_3.bean.QQUserBaseDataBean;
 import com.a360filemanager.goodsq.my_matchbox_3.bean.QQUserInfoBean;
-import com.a360filemanager.goodsq.my_matchbox_3.httpUtils.ServerUtils;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.AccessServerUtils;
 import com.alibaba.fastjson.JSON;
 import com.tencent.connect.UserInfo;
 import com.tencent.tauth.IUiListener;
@@ -78,8 +78,8 @@ public class QQLogin {
             //fastJson反序列化，使mQQUserInfoBean拿到数据
             mQQUserInfoBean = JSON.parseObject(o.toString(), QQUserInfoBean.class);
             //登录服务器,登录自己的服务器，这一步是访问服务器
-            ServerUtils mServerUtils = new ServerUtils(mContext, mTencent.getOpenId(), mQQUserInfoBean, "QQ");
-            mServerUtils.loginServer();
+            AccessServerUtils mAccessServerUtils = new AccessServerUtils(mContext, mTencent.getOpenId(), mQQUserInfoBean, "QQ");
+            mAccessServerUtils.loginServer();
             //服务器注册参数
             // 1.openId 用户名
             // 2.头像，

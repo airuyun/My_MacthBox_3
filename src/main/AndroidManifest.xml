@@ -7,6 +7,26 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.VIBRATE" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.MOUNT_UNMOUNT_FILESYSTEMS" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="com.android.launcher.permission.READ_SETTINGS" />
+    <uses-permission android:name="android.permission.WRITE_SETTINGS" />
+    <uses-permission android:name="android.permission.MANAGE_ACCOUNTS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+    <uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.READ_SMS" />
+
 
     <application
         android:name=".MyApp"
@@ -15,8 +35,7 @@
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".activity.MainActivity"
-            android:launchMode="singleTop">
+        <activity android:name=".activity.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -31,10 +50,19 @@
             android:launchMode="singleTask" />
         <activity android:name=".activity.EditDataActivity" />
         <activity android:name=".activity.SelectTopicActivity" />
-        <activity android:name=".activity.setFigureActivity" />
+        <activity android:name=".activity.SetPortraitActivity" />
         <activity android:name=".activity.HomeActivity" />
-        <activity android:name=".activity.VerifyActivity"/>
-        <activity android:name=".activity.SetPasswordActivity"/>
+        <activity android:name=".activity.VerifyActivity" />
+        <activity android:name=".activity.SetPasswordActivity" />
+        <activity android:name=".activity.CreateTopicActivity" />
+        <activity android:name=".activity.PostDeatilActivity" />
+        <activity android:name=".activity.SearchActivity" />
+        <activity android:name=".activity.ContactsActivity" />
+        <activity android:name=".activity.ContactsSearchActivity" />
+        <activity android:name=".activity.ChatActivity" />
+        <activity android:name=".activity.PublishTopicActivity" />
+        <activity android:name=".activity.EditPostActivity" />
+        <activity android:name=".activity.MoreTopicListActivity" />
         <!--=============================================================================================-->
         <activity
             android:name="com.tencent.tauth.AuthActivity"
@@ -61,6 +89,46 @@
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:windowSoftInputMode="adjustResize"></activity>
+
+        <!--=========================================环信========================================-->
+        <!-- 设置环信应用的AppKey -->
+        <meta-data
+            android:name="EASEMOB_APPKEY"
+            android:value="huary#matchbox" />
+        <!-- 声明SDK所需的service SDK核心功能-->
+        <service
+            android:name="com.hyphenate.chat.EMChatService"
+            android:exported="true" />
+        <!-- 声明SDK所需的receiver -->
+        <receiver android:name="com.hyphenate.chat.EMMonitorReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.PACKAGE_REMOVED" />
+                <data android:scheme="package" />
+            </intent-filter>
+            <!-- 可选filter -->
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+                <action android:name="android.intent.action.USER_PRESENT" />
+            </intent-filter>
+        </receiver>
+
+        百度地图
+        <meta-data
+            android:name="com.baidu.lbsapi.API_KEY"
+            android:value="oc9fcq04NqyLZXxc56CBZ05NlWkFbk4s" />
+        <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity" />
+        查看大图
+        <activity android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity" />
+        文件
+        <activity android:name="com.hyphenate.easeui.ui.EaseShowNormalFileActivity" />
+
+        <!--        <meta-data
+                    android:name="com.baidu.lbsapi.API_KEY"
+                    android:value="UqkEo9DNLfEDOn85XLBk19adM8MZe74p" />
+
+                <activity android:name="com.hyphenate.easeui.ui.EaseShowBigImageActivity" />
+                <activity android:name="com.hyphenate.easeui.ui.EaseShowNormalFileActivity" />
+                <activity android:name="com.hyphenate.easeui.ui.EaseBaiduMapActivity" />-->
 
     </application>
 

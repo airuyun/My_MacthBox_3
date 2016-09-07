@@ -12,7 +12,6 @@ import com.a360filemanager.goodsq.my_matchbox_3.MyApp;
 import com.a360filemanager.goodsq.my_matchbox_3.MyTextWatcher;
 import com.a360filemanager.goodsq.my_matchbox_3.R;
 import com.a360filemanager.goodsq.my_matchbox_3.base.BaseActvity;
-import com.a360filemanager.goodsq.my_matchbox_3.bean.UserLoginInfoBean;
 import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstantUtils;
 import com.a360filemanager.goodsq.my_matchbox_3.utils.MyOnCheckedChangeListener;
 
@@ -43,9 +42,6 @@ public class SetPasswordActivity extends BaseActvity {
     public int getLayout() {
         return R.layout.activity_set_password;
     }
-
-    //怎么判断中文的大小
-    // str.length == str.getbytes.leng;
 
     @OnClick({R.id.password_iv_clear, R.id.password_tv_submit})
     public void onClick(View view) {

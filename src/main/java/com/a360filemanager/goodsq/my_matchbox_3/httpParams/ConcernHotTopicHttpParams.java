@@ -12,7 +12,7 @@ import org.xutils.http.annotation.HttpRequest;
 @HttpRequest(host = ServerInterfaceBean.BASE_URL,path = ServerInterfaceBean.CONCERN_HOT_TOPIC)
 public class ConcernHotTopicHttpParams extends RequestParams{
     public ConcernHotTopicHttpParams (int friendId){
-        this.addBodyParameter("userTopic.user.id", MyApp.getInstance().getUser().getUserId() + "");//friend.user.i,登录者的id
+        this.addBodyParameter("userTopic.user.id", MyApp.getInstance().getUser().getUserId()+"");//friend.user.i,登录者的id
         this.addBodyParameter("userTopic.topic.id", friendId + "");//friend.beuser.id,关注话题的id
     }
 }

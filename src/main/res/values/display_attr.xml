@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="DisplayTextView">
+        <attr name="showMoreText" format="string" />
+        <attr name="hideMoreText" format="string" />
+        <attr name="maxLines" format="integer" />
+        <attr name="time" format="integer" />
+        <attr name="textColor" format="color" />
+        <attr name="showColor" format="color" />
+        <attr name="text" format="string" />
+    </declare-styleable>
+</resources>

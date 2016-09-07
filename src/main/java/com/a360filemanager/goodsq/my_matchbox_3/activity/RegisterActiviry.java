@@ -3,7 +3,6 @@ package com.a360filemanager.goodsq.my_matchbox_3.activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -15,10 +14,9 @@ import com.a360filemanager.goodsq.my_matchbox_3.MyApp;
 import com.a360filemanager.goodsq.my_matchbox_3.MyTextWatcher;
 import com.a360filemanager.goodsq.my_matchbox_3.R;
 import com.a360filemanager.goodsq.my_matchbox_3.base.BaseActvity;
-import com.a360filemanager.goodsq.my_matchbox_3.bean.UserLoginInfoBean;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.AccessServerUtils;
 import com.a360filemanager.goodsq.my_matchbox_3.utils.BoxUtils;
 import com.a360filemanager.goodsq.my_matchbox_3.utils.ConstantUtils;
-import com.tencent.connect.common.Constants;
 
 import butterknife.InjectView;
 import butterknife.OnClick;
@@ -48,9 +46,9 @@ public class RegisterActiviry extends BaseActvity {
 
     @Override
     public void init() {
-        registerTvSendVerificationCode.setEnabled(false);//不能触发点击事件
         //出错地方：应该这样拿到XML中的碎片（fragment)包含的类的实例，而不是new一个ThirdPartyFragment对象
         fragment = getSupportFragmentManager().findFragmentById(R.id.thirdparty);
+        registerTvSendVerificationCode.setEnabled(false);//不能触发点击事件
         registerEtInputPhoneNum.requestFocus();//让 EditText获得光标
         registerEtInputPhoneNum.addTextChangedListener(new MyTextWatcher(registerEtInputPhoneNum, registerIvClearPhoneNum, registerTvSendVerificationCode, ConstantUtils.REGISTER_PHONENUM_TAG));//常量ConstantUtils.REGISTER_TAG = 0，为注册标记
         registerEtInputPhoneNum.setOnEditorActionListener(editorAction);//EditText回车监听
@@ -59,7 +57,7 @@ public class RegisterActiviry extends BaseActvity {
     @Override
     protected void onResume() {
         super.onResume();
-        SMSSDK.registerEventHandler(eventHandler);
+        SMSSDK.registerEventHandler(eventHandler);//mob.com短信
     }
 
     @Override
@@ -86,9 +84,16 @@ public class RegisterActiviry extends BaseActvity {
                 startActivity(new Intent(this, LoginActivity.class));
                 break;
             case R.id.register_tv_sendVerificationCode:
-                MyApp.getInstance().getUser().setUserId(Long.parseLong(registerEtInputPhoneNum.getText().toString().replace(" ", "")));//记录输入的电话号码
-                startActivity(new Intent(this, SetPasswordActivity.class));
-                //sendVerificationCode();
+                if (registerEtInputPhoneNum.getText().toString().replace(" ", "").matches("[1][34578][\\d]{9}")) {
+                    //登录服务器
+                    MyApp.getInstance().getUser().setUsername(registerEtInputPhoneNum.getText().toString().replace(" ", ""));//记录输入的电话号码,作为账号(即登录名)
+                    startActivity(new Intent(this, SetPasswordActivity.class));
+                    //sendVerificationCode();
+                } else {
+                    Toast.makeText(this, "请输入正确的电话号码", Toast.LENGTH_SHORT).show();
+                }
+
+
                 break;
             case R.id.register_iv_clearPhoneNum:
                 registerEtInputPhoneNum.setText("");

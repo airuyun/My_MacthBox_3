@@ -28,6 +28,11 @@ public class MyPagerAdapter extends PagerAdapter {
         init();
     }
 
+    @Override
+    public int getCount() {
+        return Integer.MAX_VALUE;
+    }
+
     private void init() {
 
         for (int i = 0; i < 5; i++) {
@@ -38,11 +43,6 @@ public class MyPagerAdapter extends PagerAdapter {
             tvBelow.setText(mContext.getResources().getStringArray(R.array.main_textBottom)[i]);
             mList.add(view);
         }
-    }
-
-    @Override
-    public int getCount() {
-        return Integer.MAX_VALUE;
     }
 
     @Override

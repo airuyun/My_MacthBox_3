@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/fans_rl_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="10dp"
+            android:background="@drawable/search_background"
+            android:gravity="center">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableLeft="@mipmap/community_search"
+                android:gravity="center_vertical"
+                android:text="搜索关注人/粉丝"
+                android:textColor="@color/colorArmyGreen" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+            <com.a360filemanager.goodsq.my_matchbox_3.view.ScrollViewWithListView
+                android:id="@+id/fans_lv"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+            </com.a360filemanager.goodsq.my_matchbox_3.view.ScrollViewWithListView>
+<!--            <com.a360filemanager.goodsq.my_matchbox_3.addresslist.IndexBar
+                android:id="@+id/attention_indexBar"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:orientation="vertical">
+            </com.a360filemanager.goodsq.my_matchbox_3.addresslist.IndexBar>-->
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

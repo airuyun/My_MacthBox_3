@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.RectF;
 import android.graphics.drawable.BitmapDrawable;
@@ -32,20 +33,16 @@ public class ScaleImageView extends ImageView implements View.OnTouchListener {
 
     private int mode = NONE;
 
-    //拖拽点
-    PointF dragPointF = new PointF();
-    //中心点
-    PointF midPointF = new PointF();
+
+    PointF dragPointF = new PointF(); //拖拽点
+    PointF midPointF = new PointF();//中心点
 
     float minScale = 1f;
     float maxScale = 15f;
-
     float dest = 1;
 
     Bitmap bmp;
-
     Paint paint;
-
     DisplayMetrics dm;
 
     //矩阵

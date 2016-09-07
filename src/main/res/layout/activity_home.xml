@@ -12,30 +12,35 @@
         android:gravity="center"
         android:layout_alignParentBottom="true">
         <ImageView
+            android:tag="0"
             android:id="@+id/home_iv_friend"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/tab_friend_selector"/>
         <ImageView
+            android:tag="1"
             android:id="@+id/home_iv_topic"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/tab_topic_selector"/>
         <ImageView
+            android:tag="2"
             android:id="@+id/home_iv_message"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/tab_message_selector"/>
         <ImageView
+            android:tag="3"
             android:id="@+id/home_iv_find"
             android:layout_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:src="@drawable/tab_find_selector"/>
         <ImageView
+            android:tag="4"
             android:id="@+id/home_iv_person"
             android:layout_weight="1"
             android:layout_width="0dp"

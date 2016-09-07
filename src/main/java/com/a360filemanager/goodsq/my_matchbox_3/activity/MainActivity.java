@@ -40,12 +40,12 @@ public class MainActivity extends BaseActvity {
     @Override
     public void init() {
         WelcomeDialog dialog = new WelcomeDialog(this);//显示欢迎页
-        dialog.show();
-        MySurfaceViewCallback callback = new MySurfaceViewCallback(this);
-        sv.getHolder().addCallback(callback);//显示SurfaceView绑定的内容
-        points.getChildAt(index).setSelected(true);
-        vp.setAdapter(new MyPagerAdapter(this));
-        /**
+         dialog.show();
+         MySurfaceViewCallback callback = new MySurfaceViewCallback(this);
+         sv.getHolder().addCallback(callback);//显示SurfaceView绑定的内容
+         points.getChildAt(index).setSelected(true);
+         vp.setAdapter(new MyPagerAdapter(this));
+         /**
          * 2147483647 / 2 = 1073741820 - 1，要把Integer.MAX_VALUE中间值设为第一页，需要得到ViewPager的整数陪
          * 设置ViewPager的当前项为一个比较大的数，以便一开始就可以左右循环滑动
          */

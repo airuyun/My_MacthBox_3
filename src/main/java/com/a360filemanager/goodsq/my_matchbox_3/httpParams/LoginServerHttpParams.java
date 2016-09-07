@@ -12,8 +12,8 @@ import org.xutils.http.annotation.HttpRequest;
 @HttpRequest(host = ServerInterfaceBean.BASE_URL, path = ServerInterfaceBean.Login)
 public class LoginServerHttpParams extends RequestParams {
 
-    public LoginServerHttpParams(String id, String password) {
-        this.addBodyParameter("name", id);
+    public LoginServerHttpParams(String account, String password) {
+        this.addBodyParameter("name", account);
         this.addBodyParameter("password", password);
     }
 

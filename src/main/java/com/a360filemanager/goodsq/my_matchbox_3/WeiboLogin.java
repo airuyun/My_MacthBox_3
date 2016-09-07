@@ -3,10 +3,9 @@ package com.a360filemanager.goodsq.my_matchbox_3;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.a360filemanager.goodsq.my_matchbox_3.bean.WeiboUserInfoBean;
-import com.a360filemanager.goodsq.my_matchbox_3.httpUtils.ServerUtils;
+import com.a360filemanager.goodsq.my_matchbox_3.utils.AccessServerUtils;
 import com.alibaba.fastjson.JSON;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -78,8 +77,8 @@ public class WeiboLogin {
         public void onComplete(String s) {
             //使用fastJSon将JSon数据反序列化
             weiboUserInfoBean = JSON.parseObject(s.toString(), WeiboUserInfoBean.class);
-            ServerUtils mServerUtils = new ServerUtils(mContext, weiboUserInfoBean.getId() + "", weiboUserInfoBean, "Weibo");
-            mServerUtils.loginServer();
+            AccessServerUtils mAccessServerUtils = new AccessServerUtils(mContext, weiboUserInfoBean.getId() + "", weiboUserInfoBean, "Weibo");
+            mAccessServerUtils.loginServer();
         }
 
         @Override

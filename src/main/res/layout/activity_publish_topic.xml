@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white">
+
+    <RelativeLayout
+        android:id="@+id/rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp">
+
+        <ImageView
+            android:id="@+id/publish_topic_iv_goBack"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/community_back" />
+
+        <TextView
+            android:id="@+id/publish_topic_tv_topic"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="话题"
+            android:textColor="@color/colorArmyGreen"
+            android:textSize="@dimen/text_18dp" />
+
+        <ImageView
+            android:id="@+id/publish_topic_iv_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:src="@mipmap/topic_details_more_fold" />
+
+        <ImageView
+            android:id="@+id/publish_topic_iv_attention"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="10dp"
+            android:layout_toLeftOf="@id/publish_topic_iv_more"
+            android:src="@mipmap/topic_details_follow" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/publish_topic_rl_publish_post"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true">
+
+        <ImageView
+            android:id="@+id/publish_topic_iv_picture"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="20dp"
+            android:src="@mipmap/icon_topic_pick" />
+
+        <RelativeLayout
+            android:id="@+id/publish_topic_rl_edit_post"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@id/publish_topic_iv_picture"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/publish_topic_tv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:paddingRight="10dp"
+                android:text="发帖"
+                android:textColor="@color/colorArmyGreen"
+                android:textSize="@dimen/text_16dp" />
+
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@id/publish_topic_tv"
+                android:background="@null"
+                android:hint="点击输入文字"
+                android:focusable="false"
+                android:singleLine="true"
+                android:textColor="@color/colorArmyGreen"
+                android:textSize="@dimen/text_16dp"
+                android:textColorHint="@color/btn_white_pressed" />
+
+        </RelativeLayout>
+    </RelativeLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@android:color/darker_gray"
+            android:layout_above="@id/publish_topic_rl_publish_post"/>
+
+    <android.support.v4.view.ViewPager
+        android:id="@+id/publish_topic_vp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/publish_topic_rl_publish_post"
+        android:layout_below="@id/rl">
+
+    </android.support.v4.view.ViewPager>
+
+</RelativeLayout>

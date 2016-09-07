@@ -46,9 +46,9 @@ public class MyTextWatcher implements TextWatcher {
         if (tag == ConstantUtils.REGISTER_PHONENUM_TAG | tag == ConstantUtils.LOGIN_PHONENUM_TAG) {
 
             if (charSequence.length() > 0) {
-                MyApp.getInstance().b = true;
+                MyApp.getInstance().inputAccount = true;
             } else {
-                MyApp.getInstance().b = false;
+                MyApp.getInstance().inputAccount = false;
             }
 /*----------------------------------------电话号码处理--------------------------------------------*/
             StringBuilder sb = new StringBuilder();
@@ -78,13 +78,13 @@ public class MyTextWatcher implements TextWatcher {
                 editText.setText(sb.toString());
                 editText.setSelection(index);
             }
-/*--------------------------------------------end-------------------------------------------------*/
+/*------------------------------------------------------------------------------------------------*/
         } else if (tag == ConstantUtils.LOGIN_PASSWORD_TAG) {//登录页密码输入处理
 
-            if (editText.getText().toString().length() > 0) {
-                MyApp.getInstance().a = true;
+            if (charSequence.length() > 0) {
+                MyApp.getInstance().inputPassword = true;
             } else {
-                MyApp.getInstance().a = false;
+                MyApp.getInstance().inputPassword = false;
             }
         } else if (tag == ConstantUtils.VERIFY_TAG) {//验证码输入处理
             if (editText.getText().toString().length() >= 4) {
@@ -100,7 +100,7 @@ public class MyTextWatcher implements TextWatcher {
             }
         }
         if (tag == ConstantUtils.LOGIN_PHONENUM_TAG | tag == ConstantUtils.LOGIN_PASSWORD_TAG) {
-            if (MyApp.getInstance().a & MyApp.getInstance().b) {
+            if (MyApp.getInstance().inputPassword & MyApp.getInstance().inputAccount) {
                 textView.setEnabled(true);
             } else {
                 textView.setEnabled(false);
